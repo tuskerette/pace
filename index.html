@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>pace</title>
+  </head>
+  <body>
+    <h1>Ritmo di corsa</h1>
+    <p>Se un Americano ti chiede a quanto vai a km, la risposta la sai, ma se ti chiede a quanto vai "per mile"?</p>
+    <p>Vieni qui, controlli, e poi glielo dici</p>
+    <hr>
+    <p>If an American asks you what your pace is, you know it, but what if they ask "per mile"?</p>
+    <p>You come here, check, and let them know</p>
+    <hr>
+    <h1>tempo a km</h1>
+    <form id="form">
+      <p>
+        <label for="minutes">minuti</label>
+        <input type="number" name="minutes" id="minutes" min="1" max="20" size="2" required>
+      </p>
+      <p>
+        <label for="seconds">secondi</label>
+        <input type="number" name="seconds" id="seconds" min= "0" max="59" size="2" required>
+      </p>
+      <p>
+        <button type="submit">per mile</button>
+      </p>
+    </form>
+    <h1>per mile</h1>
+    <h1 id="results"></h1>
+
+
+  <script type="text/javascript">
+    const form = document.getElementById('form');
+    form.addEventListener('submit', calc);
+    const results = document.getElementById('results');
+
+    function calc(event) {
+      event.preventDefault();
+      const minutes = parseInt(document.getElementById('minutes').value);
+      const seconds = parseInt(document.getElementById('seconds').value);
+      const seconds_km_tot = (minutes * 60) + seconds;
+      const seconds_mi_tot = Math.trunc(seconds_km_tot / 0.621); //0.621 is 1km to miles
+
+      const minutes_mi = Math.floor(seconds_mi_tot / 60).toString();
+      const seconds_mi = (seconds_mi_tot - minutes_mi * 60).toString().padStart(2, '0'); // show leading zero is less than 10
+
+      return results.innerHTML = minutes_mi + ":" + seconds_mi;
+    }
+  </script>
+  </body>
+</html>
